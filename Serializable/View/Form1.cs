@@ -163,5 +163,26 @@ namespace Serializable
             Listar(Equipos.Equipos);
             tboxNombre.Focus();
         }
+
+        private void btnMod_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ValEquipo())
+                {
+                    if (Confirm("¿Seguro que desea modificar este item?"))
+                    {
+                        Equipos.Update(Int16.Parse(IndexTable.ToString()), new Equipo(tboxNombre.Text.ToUpper(), tboxEstadio.Text.ToUpper(),
+                                                        new Uri(tboxuEstadio.Text), new Uri(tboxuEscudo.Text)));
+                        btnCancel.PerformClick();
+                        MessageBox.Show("Se ha modificado satisfactoriamente", "modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ha ocurrido un error vuelva a intentar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

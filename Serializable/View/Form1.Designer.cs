@@ -234,6 +234,7 @@
             this.btnMod.Text = "Modificar";
             this.btnMod.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnMod.UseVisualStyleBackColor = true;
+            this.btnMod.Click += new System.EventHandler(this.btnMod_Click);
             // 
             // btnElim
             // 

@@ -33,7 +33,7 @@ namespace Serializable.Controller
 
         public void Update(int Index, Equipo Equipo)
         {
-            Equipos.Insert(Index, Equipo);
+            Equipos[Index] = Equipo;
         }
 
         public void Delete(int Index)
