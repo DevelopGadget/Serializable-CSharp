@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\EquipoController.cs" />
     <Compile Include="Model\Equipo.cs" />
     <Compile Include="View\Form1.cs">
       <SubType>Form</SubType>
@@ -95,8 +96,6 @@
   <ItemGroup>
     <None Include="Resources\Logo.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

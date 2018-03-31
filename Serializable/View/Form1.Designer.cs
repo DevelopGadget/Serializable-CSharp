@@ -64,6 +64,60 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbEstadio)).BeginInit();
             this.SuspendLayout();
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(46, 9);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(99, 13);
+            label1.TabIndex = 2;
+            label1.Text = "Nombre del equipo:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(242, 9);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(101, 13);
+            label2.TabIndex = 4;
+            label2.Text = "Nombre del estadio:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(455, 9);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(78, 13);
+            label3.TabIndex = 6;
+            label3.Text = "Url del escudo:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(651, 9);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(77, 13);
+            label4.TabIndex = 8;
+            label4.Text = "Url del estadio:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(102, 81);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(100, 13);
+            label5.TabIndex = 17;
+            label5.Text = "Imagen del escudo:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(444, 81);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(99, 13);
+            label6.TabIndex = 18;
+            label6.Text = "Imagen del estadio:";
+            // 
             // TableEquipos
             // 
             this.TableEquipos.AllowUserToAddRows = false;
@@ -133,24 +187,6 @@
             this.tboxNombre.Size = new System.Drawing.Size(167, 20);
             this.tboxNombre.TabIndex = 1;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(46, 9);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(99, 13);
-            label1.TabIndex = 2;
-            label1.Text = "Nombre del equipo:";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(242, 9);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(101, 13);
-            label2.TabIndex = 4;
-            label2.Text = "Nombre del estadio:";
-            // 
             // tboxEstadio
             // 
             this.tboxEstadio.Location = new System.Drawing.Point(208, 35);
@@ -158,30 +194,12 @@
             this.tboxEstadio.Size = new System.Drawing.Size(167, 20);
             this.tboxEstadio.TabIndex = 3;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(455, 9);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(78, 13);
-            label3.TabIndex = 6;
-            label3.Text = "Url del escudo:";
-            // 
             // tboxuEscudo
             // 
             this.tboxuEscudo.Location = new System.Drawing.Point(408, 35);
             this.tboxuEscudo.Name = "tboxuEscudo";
             this.tboxuEscudo.Size = new System.Drawing.Size(167, 20);
             this.tboxuEscudo.TabIndex = 5;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(651, 9);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(77, 13);
-            label4.TabIndex = 8;
-            label4.Text = "Url del estadio:";
             // 
             // tboxuEstadio
             // 
@@ -201,9 +219,11 @@
             this.btnAdd.Text = "Registrar";
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnMod
             // 
+            this.btnMod.Enabled = false;
             this.btnMod.Image = global::Serializable.Properties.Resources.Update;
             this.btnMod.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnMod.Location = new System.Drawing.Point(654, 132);
@@ -216,6 +236,7 @@
             // 
             // btnElim
             // 
+            this.btnElim.Enabled = false;
             this.btnElim.Image = global::Serializable.Properties.Resources.Delete;
             this.btnElim.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnElim.Location = new System.Drawing.Point(654, 183);
@@ -275,24 +296,6 @@
             this.pbEstadio.TabIndex = 16;
             this.pbEstadio.TabStop = false;
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(102, 81);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(100, 13);
-            label5.TabIndex = 17;
-            label5.Text = "Imagen del escudo:";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(444, 81);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(99, 13);
-            label6.TabIndex = 18;
-            label6.Text = "Imagen del estadio:";
-            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -324,6 +327,7 @@
             this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Serializable Equipos";
+            this.Load += new System.EventHandler(this.Principal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TableEquipos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEscudo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEstadio)).EndInit();
