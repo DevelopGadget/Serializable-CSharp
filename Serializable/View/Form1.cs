@@ -11,6 +11,7 @@ namespace Serializable
     {
 
         private EquipoController Equipos = new EquipoController();
+        private object IndexTable;
 
         public Principal()
         {
@@ -39,9 +40,8 @@ namespace Serializable
             {
                 Equipos.Create(new Equipo(tboxNombre.Text.ToUpper(), tboxEstadio.Text.ToUpper(), 
                     new Uri(tboxuEstadio.Text), new Uri(tboxuEscudo.Text)));
-                Vista();
-                MessageBox.Show("Se ha registrado satisfactoriamente", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                Listar(Equipos.Equipos);
+                btnCancel.PerformClick();
+                MessageBox.Show("Se ha registrado satisfactoriamente", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -59,6 +59,9 @@ namespace Serializable
             tboxuEstadio.Text = null;
             tboxNombre.Text = null;
             tboxuEscudo.Text = null;
+            IndexTable = null;
+            pbEstadio.ImageLocation = null;
+            pbEscudo.ImageLocation = null;
         }
 
         private bool ValEquipo()
@@ -113,6 +116,52 @@ namespace Serializable
                 if (wresp != null)
                     wresp.Close();
             }
+        }
+
+        private void TableEquipos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ControlBtn(false);
+            IndexTable = TableEquipos.CurrentRow.Cells[0].Value;
+            tboxNombre.Text = TableEquipos.CurrentRow.Cells[1].Value.ToString();
+            tboxEstadio.Text = TableEquipos.CurrentRow.Cells[2].Value.ToString();
+            tboxuEscudo.Text = TableEquipos.CurrentRow.Cells[3].Value.ToString();
+            tboxuEstadio.Text = TableEquipos.CurrentRow.Cells[4].Value.ToString();
+            pbEscudo.ImageLocation = TableEquipos.CurrentRow.Cells[3].Value.ToString();
+            pbEstadio.ImageLocation = TableEquipos.CurrentRow.Cells[4].Value.ToString();
+        }
+
+        private void btnElim_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(Confirm("¿Seguro que desea eliminar este item?"))
+                {
+                    Equipos.Delete(Int16.Parse(IndexTable.ToString()));
+                    btnCancel.PerformClick();
+                    MessageBox.Show("Se ha eliminado satisfactoriamente", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ha ocurrido un error vuelva a intentar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool Confirm(string Mensaje)
+        {
+             if(MessageBox.Show(Mensaje, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+             {
+                return true;
+             }
+            return false;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Vista();
+            ControlBtn(true);
+            Listar(Equipos.Equipos);
+            tboxNombre.Focus();
         }
     }
 }

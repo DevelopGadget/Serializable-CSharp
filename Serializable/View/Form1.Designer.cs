@@ -138,6 +138,7 @@
             this.TableEquipos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.TableEquipos.Size = new System.Drawing.Size(760, 162);
             this.TableEquipos.TabIndex = 0;
+            this.TableEquipos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TableEquipos_CellClick);
             // 
             // Index
             // 
@@ -246,6 +247,7 @@
             this.btnElim.Text = "Eliminar";
             this.btnElim.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnElim.UseVisualStyleBackColor = true;
+            this.btnElim.Click += new System.EventHandler(this.btnElim_Click);
             // 
             // btnCancel
             // 
@@ -258,6 +260,7 @@
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // tboxFind
             // 
