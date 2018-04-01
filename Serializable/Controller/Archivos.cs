@@ -8,38 +8,25 @@ namespace Serializable.Controller
 {
     class Archivos
     {
-        private FileStream stream;
+        private Stream stream;
         private BinaryFormatter Formateador = new BinaryFormatter();
 
         public bool Serializar(object Equipo)
         {
-            try
-            {
-                stream = new FileStream("..\\Equipos.dat", FileMode.Create, FileAccess.Write, FileShare.None);
-                Formateador.Serialize(stream, Equipo);
-                stream.Close();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            stream = new FileStream("Equipos.dat", FileMode.Create, FileAccess.Write, FileShare.None);
+            Formateador.Serialize(stream, Equipo);
+            stream.Close();
+            return true;
         }
 
         public object Deserializar()
         {
-            try
-            {
-                object v;
-                stream = new FileStream("..\\Equipos.dat", FileMode.OpenOrCreate, FileAccess.Read, FileShare.None);
+            object v = null;
+            stream = new FileStream("Equipos.dat", FileMode.OpenOrCreate, FileAccess.Read, FileShare.None);
+            if (stream.Length > 0)
                 v = Formateador.Deserialize(stream);
-                stream.Close();
-                return v;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            stream.Close();
+            return v;
         }
     }
 }
