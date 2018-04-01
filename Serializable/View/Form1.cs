@@ -12,6 +12,7 @@ namespace Serializable
 
         private EquipoController Equipos = new EquipoController();
         private object IndexTable;
+        private Archivos Archivo = new Archivos();
 
         public Principal()
         {
@@ -21,13 +22,14 @@ namespace Serializable
         private void Principal_Load(object sender, System.EventArgs e)
         {
             tboxNombre.Focus();
+            Equipos.Equipos = (Archivo.Deserializar() != null) ? Archivo.Deserializar() as List<Equipo> : new List<Equipo>();
             Listar(Equipos.Equipos);
         }
 
         private void Listar(List<Equipo> Lista)
         {
             TableEquipos.Rows.Clear();
-            for(int i = 0; i < Lista.Count; i++)
+            for (int i = 0; i < Lista.Count; i++)
             {
                 TableEquipos.Rows.Add(new string[] {i+"", Lista[i].Nombre, Lista[i].Estadio ,
                     Lista[i].uEscudo.ToString(), Lista[i].uEstadio.ToString()});
@@ -38,10 +40,18 @@ namespace Serializable
         {
             if (ValEquipo())
             {
-                Equipos.Create(new Equipo(tboxNombre.Text.ToUpper(), tboxEstadio.Text.ToUpper(), 
-                    new Uri(tboxuEstadio.Text), new Uri(tboxuEscudo.Text)));
-                btnCancel.PerformClick();
-                MessageBox.Show("Se ha registrado satisfactoriamente", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    Equipos.Create(new Equipo(tboxNombre.Text.ToUpper(), tboxEstadio.Text.ToUpper(),
+                                                new Uri(tboxuEstadio.Text), new Uri(tboxuEscudo.Text)));
+                    Archivo.Serializar(Equipos.Equipos);
+                    btnCancel.PerformClick();
+                    MessageBox.Show("Se ha registrado satisfactoriamente", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ha ocurrido un error vuelva a intentar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -68,12 +78,13 @@ namespace Serializable
         {
             try
             {
-                if(string.IsNullOrEmpty(tboxEstadio.Text) || string.IsNullOrEmpty(tboxNombre.Text) ||
+                if (string.IsNullOrEmpty(tboxEstadio.Text) || string.IsNullOrEmpty(tboxNombre.Text) ||
                     string.IsNullOrEmpty(tboxuEscudo.Text) || string.IsNullOrEmpty(tboxuEstadio.Text))
                 {
                     MessageBox.Show("Debe ingresar todos los campos solicitados", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
-                }else if (!ValUrl(tboxuEscudo.Text) || !ValUrl(tboxuEstadio.Text))
+                }
+                else if (!ValUrl(tboxuEscudo.Text) || !ValUrl(tboxuEstadio.Text))
                 {
                     MessageBox.Show("Debe ingresar urls validas de imagen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
@@ -134,9 +145,10 @@ namespace Serializable
         {
             try
             {
-                if(Confirm("¿Seguro que desea eliminar este item?"))
+                if (Confirm("¿Seguro que desea eliminar este item?"))
                 {
                     Equipos.Delete(Int16.Parse(IndexTable.ToString()));
+                    Archivo.Serializar(Equipos.Equipos);
                     btnCancel.PerformClick();
                     MessageBox.Show("Se ha eliminado satisfactoriamente", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -149,10 +161,10 @@ namespace Serializable
 
         private bool Confirm(string Mensaje)
         {
-             if(MessageBox.Show(Mensaje, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-             {
+            if (MessageBox.Show(Mensaje, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
                 return true;
-             }
+            }
             return false;
         }
 
@@ -174,6 +186,7 @@ namespace Serializable
                     {
                         Equipos.Update(Int16.Parse(IndexTable.ToString()), new Equipo(tboxNombre.Text.ToUpper(), tboxEstadio.Text.ToUpper(),
                                                         new Uri(tboxuEstadio.Text), new Uri(tboxuEscudo.Text)));
+                        Archivo.Serializar(Equipos.Equipos);
                         btnCancel.PerformClick();
                         MessageBox.Show("Se ha modificado satisfactoriamente", "modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }

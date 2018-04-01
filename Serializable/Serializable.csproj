@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\EquipoController.cs" />
+    <Compile Include="Controller\Archivos.cs" />
     <Compile Include="Model\Equipo.cs" />
     <Compile Include="View\Form1.cs">
       <SubType>Form</SubType>
